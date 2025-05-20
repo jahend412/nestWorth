@@ -6,14 +6,21 @@ export default [
     files: ["**/*.{js,mjs,cjs}"],
     languageOptions: {
       globals: {
-        ...globals.node, // Adds Node.js globals like process, __dirname, Buffer
-        ...globals.es2021, // Adds modern JavaScript globals like Promise, globalThis
+        ...globals.node,
+        ...globals.es2021,
       },
       ecmaVersion: "latest",
       sourceType: "module",
     },
     rules: {
-      ...js.configs.recommended.rules, // Apply ESLint recommended rules
+      ...js.configs.recommended.rules,
+      "no-unused-vars": [
+        "error",
+        {
+          argsIgnorePattern: "^_",
+          varsIgnorePattern: "^_",
+        },
+      ],
     },
   },
 ];
