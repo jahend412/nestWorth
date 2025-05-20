@@ -6,7 +6,6 @@ import AppError from "./utils/appError";
 dotenv.config();
 
 const app = express();
-// eslint-disable-next-line no-undef
 const PORT = process.env.PORT || 5000;
 
 // Middleware
