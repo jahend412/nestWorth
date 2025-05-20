@@ -1,6 +1,7 @@
 // Core imports
 import express from "express";
 import dotenv from "dotenv";
+import AppError from "./utils/appError";
 
 dotenv.config();
 
@@ -14,6 +15,10 @@ app.use(express.json());
 // Test Route
 app.get("/", (req, res) => {
   res.send("NestWorth API is up and running");
+});
+
+app.all("*", (req, res, next) => {
+  next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
 });
 
 app.listen(PORT, () => {
