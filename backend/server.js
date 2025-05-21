@@ -1,4 +1,4 @@
-import app from "./app.js";
+import app from "../app.js";
 import http from "http";
 import process from "process";
 
@@ -27,4 +27,11 @@ process.on("unhandledRejection", (err) => {
   server.close(() => {
     process.exit(1);
   });
+});
+
+// Uncaught Exceptions
+process.on("uncaughtException", (err) => {
+  console.error("Uncaught exception! Shutting down...");
+  console.error(err.name, err.message);
+  process.exit(1);
 });
