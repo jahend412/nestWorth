@@ -15,11 +15,26 @@ export default (sequelize, DataTypes) => {
         foreignKey: "userId",
         as: "accounts",
       });
-      User.beforeCreate(async (user) => {
-        user.password = await bcrypt.hash(user.password, 12);
-      });
+    }
+
+    // Instance method to check if password is correct
+    async correctPassword(candidatePassword, userPassword) {
+      return await bcrypt.compare(candidatePassword, userPassword);
+    }
+
+    // Instance method to check if password was changed after token was issued
+    changedPasswordAfter(JWTTimestamp) {
+      if (this.passwordChangedAt) {
+        const changedTimestamp = parseInt(
+          this.passwordChangedAt.getTime() / 1000,
+          10
+        );
+        return JWTTimestamp < changedTimestamp;
+      }
+      return false;
     }
   }
+
   User.init(
     {
       firstName: {
@@ -46,10 +61,26 @@ export default (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         defaultValue: "user",
       },
+      passwordChangedAt: {
+        type: DataTypes.DATE,
+      },
     },
     {
       sequelize,
       modelName: "User",
+      hooks: {
+        // Hash password before creating new user
+        beforeCreate: async (user) => {
+          user.password = await bcrypt.hash(user.password, 12);
+        },
+        // Update passwordChangedAt when password changes
+        beforeUpdate: async (user) => {
+          if (user.changed("password")) {
+            user.password = await bcrypt.hash(user.password, 12);
+            user.passwordChangedAt = new Date(Date.now() - 1000);
+          }
+        },
+      },
     }
   );
 
