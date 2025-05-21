@@ -1,16 +1,17 @@
 "use strict";
 const { Model } = require("sequelize");
+
 module.exports = (sequelize, DataTypes) => {
   class Account extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-    static associate(_models) {
-      // define association here
+    static associate(models) {
+      // Define association here
+      Account.belongsTo(models.User, {
+        foreignKey: "userId",
+        as: "user",
+      });
     }
   }
+
   Account.init(
     {
       name: DataTypes.STRING,
@@ -23,5 +24,6 @@ module.exports = (sequelize, DataTypes) => {
       modelName: "Account",
     }
   );
+
   return Account;
 };

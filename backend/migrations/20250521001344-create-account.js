@@ -15,16 +15,10 @@ module.exports = {
       type: {
         type: Sequelize.STRING
       },
-      amount: {
+      balance: {
         type: Sequelize.DECIMAL
       },
-      date: {
-        type: Sequelize.DATE
-      },
-      category: {
-        type: Sequelize.STRING
-      },
-      accountId: {
+      userId: {
         type: Sequelize.INTEGER
       },
       createdAt: {
