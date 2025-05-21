@@ -2,6 +2,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import AppError from "./utils/appError";
+import authRoutes from "./routes/authRoutes";
 
 dotenv.config();
 
@@ -15,6 +16,8 @@ app.use(express.json());
 app.get("/", (req, res) => {
   res.send("NestWorth API is up and running");
 });
+
+app.use("/api/v1/auth", authRoutes);
 
 app.all("*", (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
