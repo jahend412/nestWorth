@@ -1,5 +1,6 @@
 "use strict";
 import { Model } from "sequelize";
+import bcrypt from "bcryptjs";
 
 export default (sequelize, DataTypes) => {
   class User extends Model {
@@ -13,6 +14,9 @@ export default (sequelize, DataTypes) => {
       User.hasMany(models.Account, {
         foreignKey: "userId",
         as: "accounts",
+      });
+      User.beforeCreate(async (user) => {
+        user.password = await bcrypt.hash(user.password, 12);
       });
     }
   }
@@ -33,6 +37,14 @@ export default (sequelize, DataTypes) => {
         validate: {
           isEmail: true,
         },
+      },
+      password: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      role: {
+        type: DataTypes.STRING,
+        defaultValue: "user",
       },
     },
     {
