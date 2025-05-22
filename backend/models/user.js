@@ -1,6 +1,7 @@
 "use strict";
 import { Model } from "sequelize";
 import bcrypt from "bcryptjs";
+import crypto from "crypto";
 
 export default (sequelize, DataTypes) => {
   class User extends Model {
@@ -32,6 +33,20 @@ export default (sequelize, DataTypes) => {
         return JWTTimestamp < changedTimestamp;
       }
       return false;
+    }
+
+    // Instance method to create password reset token
+    createPasswordResetToken() {
+      const resetToken = crypto.randomBytes(32).toString("hex");
+
+      this.passwordResetToken = crypto
+        .createHash("sha256")
+        .update(resetToken)
+        .digest("hex");
+
+      this.passwordResetExpires = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes
+
+      return resetToken;
     }
   }
 
