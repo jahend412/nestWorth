@@ -6,6 +6,7 @@ import {
   restrictTo,
   forgotPassword,
   resetPassword,
+  updatePassword,
 } from "../controllers/authController";
 
 const router = express.Router();
@@ -21,5 +22,6 @@ router.post("/signup", signup);
 router.post("/login", login);
 router.post("/forgotPassword", forgotPassword);
 router.patch("/resetPassword/:token", resetPassword);
+router.patch("/updateMyPassowrd", protect, updatePassword);
 
 export default router;
