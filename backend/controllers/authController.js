@@ -174,6 +174,7 @@ export const forgotPassword = catchAsync(async (req, res, next) => {
       status: "success",
       message: "Token sent to email!",
     });
+    // eslint-disable-next-line no-unused-vars
   } catch (err) {
     user.passwordResetToken = null;
     user.passwordResetExpires = null;
@@ -186,4 +187,35 @@ export const forgotPassword = catchAsync(async (req, res, next) => {
       )
     );
   }
+});
+
+// Reset Password
+
+export const resetPassword = catchAsync(async (req, res, next) => {
+  // 1) Get user based on the token
+  const hashedToken = crypto
+    .createHash("sha256")
+    .update(req.params.token)
+    .digest("hex");
+
+  const user = await User.findOne({
+    where: {
+      passwordResetToken: hashedToken,
+      passwordResetExpires: { [Op.gt]: Date.now() },
+    },
+  });
+
+  // 2) If token has not expired, and there is user, set the new password
+  if (!user) {
+    return next(new AppError("Token is invalid or has expired", 400));
+  }
+
+  user.password = req.body.password;
+  user.passwordResetToken = null;
+  user.passwordResetExpires = null;
+
+  await user.save();
+
+  // 3) Log the user in, send JWT
+  createSendToken(user, 200, res);
 });
