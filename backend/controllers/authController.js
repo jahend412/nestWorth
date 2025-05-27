@@ -49,20 +49,6 @@ export const signup = catchAsync(async (req, res) => {
     password: req.body.password,
   });
 
-  const token = signToken(newUser.id);
-
-  res.status(201).json({
-    status: "success",
-    token,
-    data: {
-      user: {
-        id: newUser.id,
-        name: newUser.name,
-        email: newUser.email,
-      },
-    },
-  });
-
   createSendToken(newUser, 201, res);
 });
 
@@ -83,21 +69,6 @@ export const login = catchAsync(async (req, res, next) => {
   if (!user || !(await user.correctPassword(password, user.password))) {
     return next(new AppError("Incorrect email or password", 401));
   }
-
-  // If everything ok, send token to client
-  const token = signToken(user.id);
-
-  res.status(200).json({
-    status: "success",
-    token,
-    data: {
-      user: {
-        id: user.id,
-        name: user.name,
-        email: user.email,
-      },
-    },
-  });
 
   createSendToken(user, 200, res);
 });
