@@ -7,6 +7,7 @@ import {
   forgotPassword,
   resetPassword,
   updatePassword,
+  logout,
 } from "../controllers/authController";
 
 const router = express.Router();
@@ -20,8 +21,13 @@ router.get("/admin-only", protect, restrictTo("admin"), (req, res) => {
 
 router.post("/signup", signup);
 router.post("/login", login);
+router.post("/logout", logout);
 router.post("/forgotPassword", forgotPassword);
 router.patch("/resetPassword/:token", resetPassword);
-router.patch("/updateMyPassowrd", protect, updatePassword);
+
+// All routes after this are protected
+router.use(protect);
+
+router.patch("/updateMyPassowrd", updatePassword);
 
 export default router;
