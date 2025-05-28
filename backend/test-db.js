@@ -1,4 +1,4 @@
-const { User, Account } = require("./models");
+import { User, Account } from "./models/index.js";
 
 async function testDatabase() {
   try {
@@ -7,7 +7,7 @@ async function testDatabase() {
       firstName: "John",
       lastName: "Doe",
       email: "john@example.com",
-      passwordHash: "hashed_password",
+      password: "hashed_password",
     });
 
     console.log("User created:", user.toJSON());
