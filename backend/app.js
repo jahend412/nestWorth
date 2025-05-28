@@ -10,6 +10,7 @@ import hpp from "hpp";
 import AppError from "./utils/appError";
 import authRoutes from "./routes/authRoutes";
 import errorHandler from "./middleware/errorHandler";
+import accountRouter from "./routes/accountRoutes.js";
 
 const app = express();
 
@@ -85,6 +86,7 @@ app.use(
 
 // 2) ROUTES
 app.use("/api/v1", authRoutes);
+app.use("/api/v1/accounts", accountRouter);
 
 // 3) HANDLE UNDEFINED ROUTES
 app.all("*", (req, res, next) => {
