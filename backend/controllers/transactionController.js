@@ -16,7 +16,7 @@ class TransactionController {
   });
 
   // GET /api/transactions/:id
-  static getTransactionById = catchAsync(async (req, res, _next) => {
+  static getTransactionById = catchAsync(async (req, res, next) => {
     const { id } = req.params;
     const { userId } = req.user;
 
@@ -38,7 +38,7 @@ class TransactionController {
   });
 
   // POST /api/transactions
-  static createTransaction = catchAsync(async (req, res, _next) => {
+  static createTransaction = catchAsync(async (req, res, next) => {
     const { userId } = req.user;
     const { amount, description, category, type } = req.body;
 
@@ -133,7 +133,7 @@ class TransactionController {
   });
 
   // GET /api/transactions/summary
-  static getTransactionSummary = catchAsync(async (req, res, next) => {
+  static getTransactionSummary = catchAsync(async (req, res, _next) => {
     const { userId } = req.user;
     const transactions = await Transaction.findByUserId(userId);
 
