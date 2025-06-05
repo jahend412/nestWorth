@@ -15,7 +15,7 @@ router.use(protect);
 
 router.route("/").get(getAllTransactions).post(createTransaction);
 
-router.route("/summary", getTransactionSummary);
+router.get("/summary", getTransactionSummary);
 
 router
   .route("/:id")
