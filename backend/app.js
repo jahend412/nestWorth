@@ -7,9 +7,9 @@ import rateLimit from "express-rate-limit";
 import xss from "xss-clean";
 import cookieParser from "cookie-parser";
 import hpp from "hpp";
-import AppError from "./utils/appError";
-import authRoutes from "./routes/authRoutes";
-import errorHandler from "./middleware/errorHandler";
+import AppError from "./utils/appError.js";
+import authRoutes from "./routes/authRoutes.js";
+import errorHandler from "./middleware/errorHandler.js";
 import accountRouter from "./routes/accountRoutes.js";
 
 const app = express();
