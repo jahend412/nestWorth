@@ -1,10 +1,10 @@
 import jwt from "jsonwebtoken";
-import { User } from "../models/index";
-import catchAsync from "../utils/catchAsync";
-import AppError from "../utils/appError";
+import { User } from "../models/index.js";
+import catchAsync from "../utils/catchAsync.js";
+import AppError from "../utils/appError.js";
 import { promisify } from "util";
 import crypto from "crypto";
-import sendEmail from "../utils/email";
+import sendEmail from "../utils/email.js";
 import { Op } from "sequelize";
 
 const signToken = (id) => {

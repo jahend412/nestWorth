@@ -1,4 +1,4 @@
-import AppError from "../utils/appError";
+import AppError from "../utils/appError.js";
 
 // Development error response
 const sendErrorDev = (err, res) => {
