@@ -8,9 +8,12 @@ import xss from "xss-clean";
 import cookieParser from "cookie-parser";
 import hpp from "hpp";
 import AppError from "./utils/appError.js";
-import authRoutes from "./routes/authRoutes.js";
 import errorHandler from "./middleware/errorHandler.js";
+
+// Route Imports
+import authRoutes from "./routes/authRoutes.js";
 import accountRouter from "./routes/accountRoutes.js";
+import transactionRoutes from "./models/transaction.js";
 
 const app = express();
 
@@ -85,8 +88,9 @@ app.use(
 // app.use(express.static(path.join(__dirname, 'public')));
 
 // 2) ROUTES
-app.use("/api/v1", authRoutes);
+app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/accounts", accountRouter);
+app.use("/api/v1/transactions", transactionRoutes);
 
 // 3) HANDLE UNDEFINED ROUTES
 app.all("*", (req, res, next) => {
