@@ -13,7 +13,7 @@ import errorHandler from "./middleware/errorHandler.js";
 // Route Imports
 import authRoutes from "./routes/authRoutes.js";
 import accountRouter from "./routes/accountRoutes.js";
-import transactionRoutes from "./models/transaction.js";
+import transactionRoutes from "./routes/transactionRoutes.js";
 
 const app = express();
 
