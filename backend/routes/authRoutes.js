@@ -28,6 +28,6 @@ router.patch("/resetPassword/:token", resetPassword);
 // All routes after this are protected
 router.use(protect);
 
-router.patch("/updateMyPassowrd", updatePassword);
+router.patch("/updateMyPassword", updatePassword);
 
 export default router;
