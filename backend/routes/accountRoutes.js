@@ -16,7 +16,7 @@ router.use(protect);
 
 router.route("/").get(getAllAccounts).post(createAccount);
 
-router.get("/summary", getAccountSummary);
+router.route("/summary").get(getAccountSummary);
 
 router.route("/:id").get(getAccount).patch(updateAccount).delete(deleteAccount);
 
