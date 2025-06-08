@@ -9,6 +9,33 @@ export interface LoginData {
   password: string;
 }
 
+export interface SignupData {
+  email: string;
+  password: string;
+  confirmPassword: string;
+  firstName?: string;
+  lastName?: string;
+}
+
+export interface SignupFormErrors {
+  email?: string;
+  password?: string;
+  confirm?: string;
+  name?: string;
+  general?: string;
+}
+
+export interface SignupResponse {
+  status: "success" | "fail";
+  token?: string;
+  user?: {
+    id: string;
+    email: string;
+    name: string;
+  };
+  message?: string;
+}
+
 export interface AuthResponse {
   success: boolean;
   token: string;
