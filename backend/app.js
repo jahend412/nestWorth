@@ -61,9 +61,9 @@ app.use(
 // app.use(express.static(path.join(__dirname, 'public')));
 
 // 2) ROUTES
-app.use("/api/v1/auth", authRoutes);
-app.use("/api/v1/accounts", accountRouter);
-app.use("/api/v1/transactions", transactionRoutes);
+app.use("/api/auth", authRoutes);
+app.use("/api/accounts", accountRouter);
+app.use("/api/transactions", transactionRoutes);
 
 // 3) HANDLE UNDEFINED ROUTES
 app.use((req, res) => {
