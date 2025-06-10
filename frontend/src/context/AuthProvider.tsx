@@ -27,12 +27,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     }
 
     try {
-      const response = await axios.post<AuthResponse>("/api/auth/signup", {
-        email,
-        password,
-        firstName,
-        lastName,
-      });
+      const response = await axios.post<AuthResponse>(
+        "http://localhost:8080/api/v1/auth/signup",
+        {
+          email,
+          password,
+          firstName,
+          lastName,
+        }
+      );
 
       if (response.data.success) {
         const { token: newToken, data } = response.data;
