@@ -28,13 +28,13 @@ const createSendToken = (user, statusCode, res) => {
 
   const userResponse = {
     id: user.id,
-    name: user.name,
+    name: `${user.firstName} ${user.lastName}`,
     email: user.email,
     role: user.role,
   };
 
   res.status(statusCode).json({
-    status: "success",
+    success: true,
     token,
     data: {
       user: userResponse,
@@ -42,16 +42,35 @@ const createSendToken = (user, statusCode, res) => {
   });
 };
 
-export const signup = catchAsync(async (req, res) => {
-  const newUser = await User.create({
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
-    email: req.body.email,
-    password: req.body.password,
+export const signup = (req, res) => {
+  console.log("=== SIGNUP ROUTE HIT - SIMPLE TEST ===");
+  res.status(200).json({
+    success: true,
+    message: "Simple test response",
+    receivedData: req.body,
   });
+};
 
-  createSendToken(newUser, 201, res);
-});
+// export const signup = catchAsync(async (req, res) => {
+//   console.log("=== SIGNUP ROUTE HIT ===");
+//   console.log("Request body:", req.body);
+
+//   try {
+//     console.log("About to create user...");
+//     const newUser = await User.create({
+//       firstName: req.body.firstName,
+//       lastName: req.body.lastName,
+//       email: req.body.email,
+//       password: req.body.password,
+//     });
+//     console.log("User created successfully!", newUser.email);
+
+//     createSendToken(newUser, 201, res);
+//   } catch (error) {
+//     console.error("ERROR creating user:", error);
+//     throw error;
+//   }
+// });
 
 export const login = catchAsync(async (req, res, next) => {
   const { email, password } = req.body;
