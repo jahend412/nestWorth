@@ -102,8 +102,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     user,
     token,
     login,
+    signup,
     logout,
-
     isLoading,
   };
 
