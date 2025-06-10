@@ -1,7 +1,7 @@
 import { AuthProvider } from "./context/AuthProvider";
 import { useAuth } from "./hooks/useAuth";
 import TransactionList from "./components/TransactionList";
-import LoginForm from "./components/LoginForm";
+import Homepage from "./components/Home";
 
 import "./App.css";
 
@@ -17,7 +17,7 @@ function AppContent() {
   }
 
   if (!user) {
-    return <LoginForm />;
+    return <Homepage />;
   }
 
   return (
