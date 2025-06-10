@@ -20,8 +20,9 @@ export interface SignupData {
 export interface SignupFormErrors {
   email?: string;
   password?: string;
-  confirm?: string;
-  name?: string;
+  confirmPassword?: string;
+  firstName?: string;
+  lastName?: string;
   general?: string;
 }
 
