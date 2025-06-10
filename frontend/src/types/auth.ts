@@ -49,6 +49,13 @@ export interface AuthContextType {
   user: User | null;
   token: string | null;
   login: (email: string, password: string) => Promise<void>;
+  signup: (
+    email: string,
+    password: string,
+    confirmPassword: string,
+    firstName: string,
+    lastName: string
+  ) => Promise<void>;
   logout: () => void;
   isLoading: boolean;
 }
